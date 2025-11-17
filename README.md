@@ -1,6 +1,9 @@
 # miniGitHub
 mini GitHub-style platform, but with AI + DevOps + microservices + cloud + monitoring baked into it
 
+HIGH-LEVEL ARCHITECTURE (MICROSERVICES)
+---------------------------------------
+
 1. API Gateway
 Routing
 Rate limiting
