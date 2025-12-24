@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05-create-comment
+      author: lewis
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: repository_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: snippet_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: comment_text
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: comment
+            referencedColumnNames: id
+            referencedTableName: user_account
+            constraintName: fk_comment_user
+        - addForeignKeyConstraint:
+            baseColumnNames: repository_id
+            baseTableName: comment
+            referencedColumnNames: id
+            referencedTableName: repository
+            constraintName: fk_comment_repository
+        - addForeignKeyConstraint:
+            baseColumnNames: snippet_id
+            baseTableName: comment
+            referencedColumnNames: id
+            referencedTableName: code_snippet
+            constraintName: fk_comment_snippet

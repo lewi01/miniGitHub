@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-create-organization-member
+      author: lewis
+      changes:
+        - createTable:
+            tableName: organization_member
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: organization_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: organization_id
+            baseTableName: organization_member
+            referencedColumnNames: id
+            referencedTableName: organization
+            constraintName: fk_orgmember_organization
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: organization_member
+            referencedColumnNames: id
+            referencedTableName: user_account
+            constraintName: fk_orgmember_user

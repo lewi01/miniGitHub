@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08-create-access-token
+      author: lewis
+      changes:
+        - createTable:
+            tableName: access_token
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: access_token
+            referencedColumnNames: id
+            referencedTableName: user_account
+            constraintName: fk_token_user
